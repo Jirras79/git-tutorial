@@ -132,7 +132,9 @@
                 Console.WriteLine("V evidenci nejsou žádní pojištěnci.");
             }
         }
-
+        /// <summary>
+        /// Vypíše úvodní obrazovku
+        /// </summary>
         public void VypisUvodniObrazovku()
         {
             Console.Clear();

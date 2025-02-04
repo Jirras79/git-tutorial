@@ -47,7 +47,10 @@
             return nalezeny;
         }
 
-
+        /// <summary>
+        /// Vypíše všechny pojištěnce
+        /// </summary>
+        /// <returns></returns>
         public List<Pojistenec> VypisPojistence()
         {
             return pojistenci;
