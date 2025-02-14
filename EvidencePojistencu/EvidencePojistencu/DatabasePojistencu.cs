@@ -8,7 +8,7 @@
         /// <summary>
         /// Kolekce záznamů
         /// </summary>
-        private List<Pojistenec> pojistenci;
+        private IList<Pojistenec> pojistenci;
 
         /// <summary>
         /// Vytvoří instanci databaze
@@ -25,7 +25,7 @@
         /// <param name="prijmeni"></param>
         /// <param name="vek"></param>
         /// <param name="telefonniCislo"></param>
-        public void PridejPojistence(string jmeno, string prijmeni, int vek, int telefonniCislo)
+        public void PridejPojistence(string jmeno, string prijmeni, int vek, string telefonniCislo)
         {
             pojistenci.Add(new Pojistenec(jmeno, prijmeni, vek, telefonniCislo));
         }
@@ -48,12 +48,12 @@
         }
 
         /// <summary>
-        /// Vypíše všechny pojištěnce
+        /// Vrátí všechny pojištěnce
         /// </summary>
         /// <returns></returns>
-        public List<Pojistenec> VypisPojistence()
+        public IList<Pojistenec> VratPojistence()
         {
-            return pojistenci;
+            return pojistenci.AsReadOnly();
         }
     }
 

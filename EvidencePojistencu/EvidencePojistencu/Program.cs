@@ -1,6 +1,6 @@
 ﻿using EvidencePojistencu;
 
-Evidence evidence = new Evidence();
+UzivatelskeRozhrani evidence = new UzivatelskeRozhrani();
 char volba = '0';
 while (volba != '4')
 {

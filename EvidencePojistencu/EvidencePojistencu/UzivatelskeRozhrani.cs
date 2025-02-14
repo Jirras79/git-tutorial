@@ -1,53 +1,39 @@
 ﻿namespace EvidencePojistencu
 {
     /// <summary>
-    /// Třída reprezentuje Evidenci pojištěnců
+    /// Třída reprezentuje uživatelské rozhraní pro zadávání pojištěnců
     /// </summary>
-    class Evidence
+    class UzivatelskeRozhrani
     {
         /// <summary>
         /// Databáze s pojištěnci
         /// </summary>
         private Databaze databaze;
 
-
-
-
         /// <summary>
-        /// Vytvoří novou evidenci
+        /// Vytvoří novou evidenci pojištěnců
         /// </summary>
-        public Evidence()
+        public UzivatelskeRozhrani()
         {
             databaze = new Databaze();
         }
+
         /// <summary>
-        /// Vyzve k zadání jména pojištěnce
+        /// Vyzve k zadání jména nebo přijmení pojištěnce
         /// </summary>
         /// <returns></returns>
-        private string ZjistiJmeno()
+        private string ZjistiJmeno(string typ)
         {
-            Console.Write("\n\nZadejte jméno: ");
+            Console.Write($"\n\nZadejte {typ}: ");
             string jmeno;
             while (string.IsNullOrEmpty(jmeno = Console.ReadLine()))
             {
-                Console.Write("Zadejte jméno znovu: ");
+                Console.Write($"Zadejte {typ} znovu: ");
             }
             return jmeno;
         }
-        /// <summary>
-        /// Vyzve k zadání příjmení pojištěnce
-        /// </summary>
-        /// <returns></returns>
-        private string ZjistiPrijmeni()
-        {
-            Console.Write("\nZadejte příjmení: ");
-            string prijmeni;
-            while (string.IsNullOrEmpty(prijmeni = Console.ReadLine()))
-            {
-                Console.Write("Zadejte příjmení znovu: ");
-            }
-            return prijmeni;
-        }
+
+
         /// <summary>
         /// Vyzve k zadání věku pojištěnce
         /// </summary>
@@ -67,11 +53,11 @@
         /// Vyzve k zadání telefonního čísla
         /// </summary>
         /// <returns></returns>
-        private int ZjistiTelefonniCislo()
+        private string ZjistiTelefonniCislo()
         {
             Console.Write("\nZadejte telefonní číslo:");
-            int telefonniCislo;
-            while (!int.TryParse(Console.ReadLine(), out telefonniCislo))
+            string telefonniCislo;
+            while (string.IsNullOrEmpty(telefonniCislo = Console.ReadLine()))
             {
                 Console.Write("Zadejte telefonní číslo znovu: ");
             }
@@ -83,10 +69,10 @@
         /// </summary>
         public void PridejPojistence()
         {
-            string jmeno = ZjistiJmeno();
-            string prijmeni = ZjistiPrijmeni();
+            string jmeno = ZjistiJmeno("jméno");
+            string prijmeni = ZjistiJmeno("příjmení");
             int vek = ZjistiVek();
-            int telefonniCislo = ZjistiTelefonniCislo();
+            string telefonniCislo = ZjistiTelefonniCislo();
             databaze.PridejPojistence(jmeno, prijmeni, vek, telefonniCislo);
             Console.WriteLine("\nZáznam byl přidán.");
         }
@@ -96,8 +82,8 @@
         /// </summary>
         public void VyhledejPojistence()
         {
-            string jmeno = ZjistiJmeno();
-            string prijmeni = ZjistiPrijmeni();
+            string jmeno = ZjistiJmeno("jméno");
+            string prijmeni = ZjistiJmeno("příjmení");
             List<Pojistenec> pojistenci = databaze.NajdiPojistence(jmeno, prijmeni);
             if (pojistenci.Count > 0)
             {
@@ -118,7 +104,7 @@
         /// </summary>
         public void ZobrazVsechnyPojistence()
         {
-            List<Pojistenec> pojistenci = databaze.VypisPojistence();
+            IList<Pojistenec> pojistenci = databaze.VratPojistence();
             if (pojistenci.Count > 0)
             {
                 Console.WriteLine("\n\n-------------- Seznam všech pojištěnců ---------------");
